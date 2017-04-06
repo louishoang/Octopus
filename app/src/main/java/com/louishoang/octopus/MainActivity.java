@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     mTentaclesListView = (ListView)findViewById(R.id.tentacles_list_view);
-    TentacleList.get(this).getTentacles();
+    TentacleList.get().getTentacles();
   }
 }
