@@ -30,4 +30,9 @@ public class Tentacle {
   public void setOn(Boolean on) {
     mIsOn = on;
   }
+
+  @Override
+  public String toString() {
+    return mName;
+  }
 }
