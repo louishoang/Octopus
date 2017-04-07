@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Octopus</string>
     <string name="tentacles_string">Tentacles</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="enter_username_password">Invalid username or password!</string>
 </resources>
