@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tentacle_name"
-        android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="Tentacle name"
-        android:textSize="20dp"/>
-    <TextView
-        android:id="@+id/tentacle_is_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="On"
-        android:textSize="30dp"
-        android:layout_alignParentRight="true"/>
-</RelativeLayout>
+        android:layout_weight="4">
+
+        <ImageView
+            android:id="@+id/tentacle_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_lamp"/>
+
+        <TextView
+            android:id="@+id/tentacle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tentacle_icon"
+            android:gravity="center_vertical"
+            android:text="Tentacle name"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <Switch
+            android:id="@+id/tentacle_is_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"/>
+
+
+    </LinearLayout>
+</LinearLayout>

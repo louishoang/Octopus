@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
       // Get the data for this position
       Tentacle tentacle = TentacleList.get().getTentacles().get(position);
 
-
       //Check if an existing view is being used. otherwise inflate a view.
       if(convertView == null){
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_tentacle, parent, false);
@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
       TextView tentacleName = (TextView)convertView.findViewById(R.id.tentacle_name);
       tentacleName.setText(tentacle.getName());
 
-      TextView tentacleStatus = (TextView)convertView.findViewById(R.id.tentacle_is_on);
-      tentacleStatus.setText(tentacle.getOn().toString());
+      Switch tentacleStatus = (Switch)convertView.findViewById(R.id.tentacle_is_on);
+      tentacleStatus.setChecked(tentacle.getOn());
 
       return convertView;
     }
