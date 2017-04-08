@@ -2,6 +2,7 @@ package com.louishoang.octopus;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.Hashtable;
+import java.util.List;
+import org.json.*;
+import com.loopj.android.http.*;
+
+import cz.msebera.android.httpclient.Header;
+
 /**
  * Created by louishoang on 4/7/17.
  */
@@ -19,6 +33,8 @@ import android.widget.TextView;
 public class LoginActivity extends AppCompatActivity {
   private EditText mUsernameField;
   private EditText mPasswordField;
+  private String mUsername;
+  private String mPassword;
   private Button mLoginButton;
   private TextView mNotificationText;
   private static final String TAG = LoginActivity.class.getSimpleName();
@@ -30,19 +46,34 @@ public class LoginActivity extends AppCompatActivity {
 
     mUsernameField = (EditText)findViewById(R.id.username);
     mPasswordField = (EditText)findViewById(R.id.password);
+
     mLoginButton = (Button)findViewById(R.id.login_button);
     mNotificationText = (TextView)findViewById(R.id.notification_text);
 
     mLoginButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        if(mUsernameField.getText().toString().equals("") || mPasswordField.getText().toString().equals("")){
+        mUsername = mUsernameField.getText().toString();
+        mPassword = mPasswordField.getText().toString();
+
+        if(mUsername.equals("") || mPassword.equals("")){
           mNotificationText.setText(R.string.enter_username_password);
           mNotificationText.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.alertDanger));
           return;
         }
 
+        mNotificationText.setText("Logging in...");
 
+        RequestParams params = new RequestParams();
+        params.put("username", mUsername);
+        params.put("password", mPassword);
+
+        OctopusClient.post("/login", params, new JsonHttpResponseHandler(){
+          @Override
+          public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+            super.onSuccess(statusCode, headers, response);
+          }
+        });
       }
     });
   }
