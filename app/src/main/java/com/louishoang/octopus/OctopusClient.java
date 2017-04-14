@@ -6,7 +6,9 @@ import com.loopj.android.http.*;
  */
 
 public class OctopusClient {
-  private static final String BASE_URL = "http://localhost:3000";
+  private static final String BASE_URL = "http://10.10.10.51:3000";
+//  Volley, GJSON
+
   private static AsyncHttpClient sClient = new AsyncHttpClient();
 
   public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler){

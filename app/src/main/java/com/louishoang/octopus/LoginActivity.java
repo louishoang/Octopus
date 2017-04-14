@@ -19,8 +19,11 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+
 import org.json.*;
 import com.loopj.android.http.*;
 
@@ -39,6 +42,10 @@ public class LoginActivity extends AppCompatActivity {
   private TextView mNotificationText;
   private static final String TAG = LoginActivity.class.getSimpleName();
 
+  static class LoginModel {
+    public final String username;
+
+  }
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -46,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
 
     mUsernameField = (EditText)findViewById(R.id.username);
     mPasswordField = (EditText)findViewById(R.id.password);
-
     mLoginButton = (Button)findViewById(R.id.login_button);
     mNotificationText = (TextView)findViewById(R.id.notification_text);
 
@@ -65,13 +71,24 @@ public class LoginActivity extends AppCompatActivity {
         mNotificationText.setText("Logging in...");
 
         RequestParams params = new RequestParams();
-        params.put("username", mUsername);
-        params.put("password", mPassword);
 
-        OctopusClient.post("/login", params, new JsonHttpResponseHandler(){
+        Map<String, String> user = new HashMap<String, String>();
+        user.put("mail", mUsername);
+        user.put("password", mPassword);
+        params.put("user", user);
+
+
+        OctopusClient.post("/users/sign_in", params, new JsonHttpResponseHandler(){
+
           @Override
           public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
             super.onSuccess(statusCode, headers, response);
+          }
+
+          @Override
+          public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            mNotificationText.setText(R.string.enter_username_password);
+            super.onFailure(statusCode, headers, responseString, throwable);
           }
         });
       }
